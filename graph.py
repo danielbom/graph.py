@@ -3,6 +3,7 @@ from vertexes import vertexes
 import disjoint_set as dset
 import random
 import math
+import re
 
 '''
     Caminhos mínimos de fonte única:
@@ -27,34 +28,34 @@ import math
 
 
 def file_graph(graph, filename):
+    delim = r"[ ]*\-\>[ ]*"
+    regex = re.compile(r"(?P<from>[^\-\>]*)" + delim +
+                        r"(?P<to>[^\-\>]*)" + delim +
+                        r"(?P<weight>[\d]+(\.[\d]+))?")
     with open(filename) as file:
-        content = [line.strip() for line in file.readlines()]
-        friends = list(map(lambda friend: tuple(
-            friend.split(' -> ')), content))
-        for frm, to in friends:
-            graph.add_edge(frm, to)
-
+        for line in file.readlines():
+            match = regex.match(line.strip())
+            weight = match["weight"]
+            if weight == None:
+                weight = 1
+            graph.add_edge(match["from"], match["to"], weight)
 
 def random_graph(graph, limite=20):
     for i in range(limite):
         graph.add_edge(random.randint(0, limite), random.randint(0, limite))
-
 
 def random_graph_weight(graph, limite=20):
     for i in range(limite):
         graph.add_edge(random.randint(0, limite), random.randint(
             0, limite), random.randint(0, limite*10))
 
-
 def random_density_graph(graph, limite=20):
     for i in range(limite*100):
         graph.add_edge(random.randint(0, limite), random.randint(0, limite))
 
-
 def print_graph(graph):
     print(*sorted(list(graph.values()), key=lambda x: x.name), sep='\n')
     print()
-
 
 class graph(vertexes):
     # Buscas
