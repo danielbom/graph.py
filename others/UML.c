@@ -8,7 +8,7 @@ graph(vertexes)
 // Determinar caminho
 #define dijkstra(begin; string) ;     // OK
 #define bellman_ford(begin; string) ; // OK
-#define floyd_warshall() ;
+#define floyd_warshall() ;            // OK
 // Arvore geradora de curso minimo
 #define kruskal() ; // OK
 #define prim() ;
@@ -17,12 +17,13 @@ graph(vertexes)
 #define dinic(begin; string, end; string) ;
 #define edmonds_karp(begin; string, end; string) ;
 // Ordenacao topologica
-#define khan() ;
-#define topological_sort() ;
+#define khan() ;             // OK
+#define topological_sort() ; // OK
 // Componentes fortemente conexas
 #define kosajaru() ;
 // Aux
-#define has_circle() ;
+#define has_circle() ; // OK
+#define print() ;      // OK
 }
 
 vertexes(dict)
