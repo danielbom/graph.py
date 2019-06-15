@@ -1,6 +1,6 @@
+from collections import Counter
 from vertexes import vertexes
 import disjoint_set as dset
-from collections import Counter
 import random
 import math
 
@@ -88,10 +88,7 @@ class graph(vertexes):
         return returned
 
     def depth_first_search(self, begin):
-        '''
-            Busca em profundidade
-        '''
-        pass
+        raise NotImplementedError
 
     # Determinar caminho
     def dijkstra(self, begin):
@@ -255,17 +252,17 @@ class graph(vertexes):
         return mst
 
     def prim(self):
-        pass
+        raise NotImplementedError
 
     # Fluxo maximo
     def ford_fulkerson(self, begin, end):
-        pass
+        raise NotImplementedError
 
     def dinic(self, begin, end):
-        pass
+        raise NotImplementedError
 
     def edmonds_karp(self, begin, end):
-        pass
+        raise NotImplementedError
 
     # Ordenacao topologica
     def khan(self):
@@ -306,7 +303,7 @@ class graph(vertexes):
 
     # Componentes fortemente conexas
     def kosajaru(self):
-        pass
+        raise NotImplementedError
 
     # Auxiliares
     def has_circle(self):
