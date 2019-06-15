@@ -1,9 +1,8 @@
-import vertexes
-import random
-import math
+from vertexes import vertexes
 import disjoint_set as dset
 from collections import Counter
-from functools import reduce
+import random
+import math
 
 '''
     Caminhos mínimos de fonte única:
@@ -57,7 +56,7 @@ def print_graph(graph):
     print()
 
 
-class graph(vertexes.vertexes):
+class graph(vertexes):
     # Buscas
     def breadth_first_search(self, begin):
         '''
