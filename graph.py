@@ -311,7 +311,11 @@ class graph(vertexes.vertexes):
 
     # Auxiliares
     def has_circle(self):
-        pass
+        ds = dset.disjoint_set()
+        for e in self.list_of_all_edges():
+            if not ds.union(e.source, e.destiny):
+                return True
+        return False
 
     def print(self):
         print(*sorted(self.values(), key=lambda x: x.name), sep='\n', end='\n\n')

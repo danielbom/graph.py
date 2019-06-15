@@ -118,13 +118,13 @@ def exemple_topological_sort():
 
 
 if __name__ == "__main__":
-    EXEMPLES = True
+    EXEMPLES = False
 
     FLOYD_WARSHALL = False
     BELLMAN_FORD = False
     DIJKSTRA = False
     KRUSKAL = False
-    BFS = True
+    BFS = False
 
     PRINT_GRAPH = FLOYD_WARSHALL or BELLMAN_FORD or DIJKSTRA or KRUSKAL or BFS
 
@@ -198,3 +198,13 @@ if __name__ == "__main__":
         # exemple_dijkstra_and_bellman_ford()
         # exemple_floyd_warshall()
         exemple_topological_sort()
+
+    if True:
+        g2 = graph()
+        g2.add_single_edge(0, 1)
+
+        g2.add_single_edge(1, 2)
+        if (g2.has_circle()): print("Has cycle ! (1)")
+
+        g2.add_single_edge(2, 0)
+        if (g2.has_circle()): print("Has cycle ! (2)")
