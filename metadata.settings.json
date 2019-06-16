@@ -1,78 +1,90 @@
 {
-    "help": {
-        "name": "help or ?",
-        "help": "Show all commands.",
-        "fnct": "self.print_commands()",
-        "match": "help|\\?"
-    },
-    "exit": {
-        "name": "exit",
-        "help": "Close the program.",
-        "fnct": "self.exit()",
-        "match": "exit"
-    },
-    "print": {
-        "name": "print",
-        "help": "Print the graph.",
-        "fnct": "self.print_graph()",
-        "match": "print|p"
-    },
-    "random": {
-        "name": "random [weight|density] [%d]",
-        "help": "Create a new graph of a given length.",
-        "fnct": "self.random_graph()",
-        "match": "random[ ]*(?P<type>weight|density)?[ ]*(?P<num>\\d+)?"
-    },
-    "file": {
-        "name": "file [%s]",
-        "help": "Load a graph from a file",
-        "fnct": "self.load_file_graph()",
-        "match": "file[ ]*(?P<filename>.*)?"
-    },
-    "clear": {
-        "name": "clear",
-        "help": "Remove all elements of a graph",
-        "fnct": "self.clear_graph()",
-        "match": "clear"
-    },
-    "bfs": {
-        "name": "bfs [%s]",
-        "help": "Run a breadth first search in the current graph. \nCase a number for passed, then it's the first value.",
-        "fnct": "self.bfs_graph()",
-        "match": "bfs[ ]*(?P<first>[\\d|\\s])?"
-    },
-    "dijkstra": {
-        "name": "dijkstra [%s]",
-        "help": "Run the Dijkstra's algorithm for minimum distances.",
-        "fnct": "self.dijkstra_graph()",
-        "match": "dijkstra[ ]*(?P<first>[\\d|\\s])?"
-    },
-    "kruskal": {
-        "name": "kruskal",
-        "help": "Run the Kruskal's algorithm for...",
-        "fnct": "self.kruskal_graph()",
-        "match": "kruskal"
-    },
-    "bellmanford": {
-        "name": "bellmanford",
-        "help": "Run the Bellman Ford's algorithm for...",
-        "fnct": "self.bellman_ford_graph()",
-        "match": "bellmanford[ ]*(?P<first>[\\d|\\s])?"
-    },
-    "example": {
-        "name": "example [%s]",
-        "help": "Show examples from number or name.\n\tCase nothing for passed, show names and number of all examples.",
-        "fnct": "self.examples()",
-        "match": "example[ ]*(?P<algorithm>.)?",
-        "algorithm": {
-            "kruskal": "example_kruskal()",
-            "1": "example_kruskal()",
-            "floyd warshall": "exemple_floyd_warshall()",
-            "2": "exemple_floyd_warshall()",
-            "topological sort": "exemple_topological_sort()",
-            "3": "exemple_topological_sort()",
-            "dikstra bellmanford": "exemple_dijkstra_and_bellman_ford()",
-            "4": "exemple_dijkstra_and_bellman_ford()"
+    "commands": {
+        "help": {
+            "name": "help | ?",
+            "help": "Show all commands.",
+            "fnct": "self.help()",
+            "match": "help|\\?"
+        },
+        "exit": {
+            "name": "exit",
+            "help": "Close the program.",
+            "fnct": "self.exit()",
+            "match": "exit"
+        },
+        "print": {
+            "name": "print | p",
+            "help": "Print the graph.",
+            "fnct": "self.print_graph()",
+            "match": "print|p"
+        },
+        "random": {
+            "name": "[random | r] [weight|density] [%d]",
+            "help": "Create a new graph of a given length.",
+            "fnct": "self.random_graph()",
+            "match": "(random|r)[ ]*(?P<type>weight|density)?[ ]*(?P<num>\\d+)?"
+        },
+        "file": {
+            "name": "[file | f] [%s]",
+            "help": "Load a graph from a file",
+            "fnct": "self.load_file_graph()",
+            "match": "file[ ]*(?P<filename>.*)?"
+        },
+        "clear": {
+            "name": "clear | c",
+            "help": "Remove all elements of a graph",
+            "fnct": "self.clear_graph()",
+            "match": "clear|c"
+        },
+        "bfs": {
+            "name": "bfs [%s]",
+            "help": "Run a breadth first search in the current graph. \nCase a number for passed, then it's the first value.",
+            "fnct": "self.bfs_graph()",
+            "match": "bfs[ ]*(?P<first>[\\d|\\s])?"
+        },
+        "dijkstra": {
+            "name": "[dijkstra | d] [%s]",
+            "help": "Run the Dijkstra's algorithm for minimum distances.",
+            "fnct": "self.dijkstra_graph()",
+            "match": "(dijkstra|d)[ ]*(?P<first>[\\d|\\s])?"
+        },
+        "kruskal": {
+            "name": "kruskal | k",
+            "help": "Run the Kruskal's algorithm for...",
+            "fnct": "self.kruskal_graph()",
+            "match": "(kruskal|k)"
+        },
+        "bellmanford": {
+            "name": "bellmanford | bf",
+            "help": "Run the Bellman Ford's algorithm for...",
+            "fnct": "self.bellman_ford_graph()",
+            "match": "(bellmanford|bf)[ ]*(?P<first>[\\d|\\s])?"
+        },
+        "example": {
+            "name": "[example | e] [%s]",
+            "help": "Show examples from number or name.\n\t\t1 kruskal\n\t\t2 floyd warshall\n\t\t3 topologiical sort\n\t\t4 dijkstra bellmanford",
+            "fnct": "self.examples()",
+            "match": "(example|e)[ ]*(?P<algorithm>.)?",
+            "algorithm": {
+                "kruskal": "self.example_kruskal()",
+                "1": "self.example_kruskal()",
+                "floyd warshall": "exemple_floyd_warshall()",
+                "2": "exemple_floyd_warshall()",
+                "topological sort": "exemple_topological_sort()",
+                "3": "exemple_topological_sort()",
+                "dijkstra bellmanford": "exemple_dijkstra_and_bellman_ford()",
+                "4": "exemple_dijkstra_and_bellman_ford()"
+            }
         }
+    },
+    "redirect": {
+        "?": "help",
+        "c": "clear",
+        "p": "print",
+        "r": "random",
+        "e": "exemple",
+        "k": "kruskal",
+        "d": "dijkstra",
+        "bf": "bellmanford"
     }
 }
