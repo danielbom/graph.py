@@ -41,16 +41,16 @@ def file_graph(graph, filename):
             graph.add_edge(match["from"], match["to"], weight)
 
 def random_graph(graph, limite=20):
-    for i in range(limite):
+    for _ in range(limite):
         graph.add_edge(random.randint(0, limite), random.randint(0, limite))
 
 def random_graph_weight(graph, limite=20):
-    for i in range(limite):
+    for _ in range(limite):
         graph.add_edge(random.randint(0, limite), random.randint(
             0, limite), random.randint(0, limite*10))
 
 def random_density_graph(graph, limite=20):
-    for i in range(limite*100):
+    for _ in range(limite*100):
         graph.add_edge(random.randint(0, limite), random.randint(0, limite))
 
 def print_graph(graph):
@@ -85,7 +85,7 @@ class graph(vertexes):
         returned = {vertex.name: vertex.info.copy()
                     for vertex in self._list_of_vertexes()}
 
-        self.set_infos(0)
+        self.set_infos(None)
         return returned
 
     def depth_first_search(self, begin):
@@ -138,7 +138,7 @@ class graph(vertexes):
 
             begin_class.info["d"] = 0
 
-            for i in range(len(self.keys())):
+            for _ in range(len(self.keys())):
                 for vertex in self._list_of_vertexes():
                     for edge in vertex.edges.list_of_edges():
                         # soma das distancias
@@ -230,7 +230,7 @@ class graph(vertexes):
             número de vértices do grafo.
 
             Onde aplicar as árvores geradoras mínimas?
-                ...
+                ... TODO: Usar o 2º link para completar esta parte.
             
             Passos realizados para encontrar a MST usando o algoritmo de Kruskal
                 1 - Ordene todas as arestas na order crescente de pesos.
@@ -238,6 +238,10 @@ class graph(vertexes):
                 com a árvore geradora. Se ele não formar, inclua a aresta. Se
                 não, descarte-a.
                 3 - Repita o passo 2 até existirem (V - 1) vértices na MST.
+            
+            Links:
+            https://www.geeksforgeeks.org/?p=26604/
+            https://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/
         '''
         # n = len(self.keys())
         # TODO: Usar fila de prioridades
@@ -247,13 +251,93 @@ class graph(vertexes):
         mst = []
         for e in all_egdes:
             if ds.union(e.source, e.destiny):
-                mst.append(
-                    {"p": e.source, "s": e.destiny, "wt": e.weight})
+                mst.append({
+                    "p": e.source,
+                    "s": e.destiny,
+                    "wt": e.weight
+                })
 
         return mst
 
-    def prim(self):
-        raise NotImplementedError
+    def prim(self, begin=None):
+        ''' Constrói a árvore geradora mínima do presente grafo.
+
+            Parâmetros
+            ----------
+            self : graph
+                Estrutura de dados grafo.
+            begin : string | int, opcional
+                Valor inicial para a construção da árvore. Caso não seja
+                especificado, uma valor aleatório é utilizada.
+            
+            Retornos:
+            ---------
+            list
+                Retorna os resultados da árvore geradora mínina em uma lista.
+            
+            Informações adicionais
+            ----------------------
+            A ideia por trás do algoritmo de Prim é simple, em uma árvore
+            geradora mínima, todos os vértices devem se conectar. Então dois,
+            conjuntos disjuntos de vértices são conectados para contruir a
+            a árvore. E elas devem ser conectadas com as arestas de menor peso
+            para construir a ávore geradora minima.
+
+            Passos realizados para encontrar a MST usando o algoritmo de Prim.
+                1 - Crie um conjunto para controlar os vértices já incluídos.
+                2 - Marque um valor chame en todos os vértices do grafo com o 
+                valor infinito. Marque 0 para o primeiro vértice e guarde-o.
+                3 - Enquanto todos os vértices não forem incluídos na árvore
+                    a - Pegue um vértice 'u' que não está incluído na MST e
+                    possui a menor chave.
+                    b - Inclua 'u' na MST.
+                    b - Atualize as chaves dos vértices adjacentes de 'u', se
+                    o novo valor é menor do que o que os vértices adjacentes
+                    possuem.
+            
+            A ideia de usar um valor chave é pegar o menor peso da aresta de
+            corte. O valor chave é usado somente para o vértice que não está
+            incluído na MST. e este valor indica o peso das arestas conectadas
+            até ele na MST.
+
+            Links:
+            https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/
+        '''
+        # TODO: Change the all_vertex by a priority queue
+        # TODO: Use diisjoint set to now if has generate cicle
+        self.set_infos({"key": math.inf, "p": None})
+        
+        if begin is None:
+            begin = random.choice(list(self.keys()))
+        vertex = self.get(begin)
+        vertex.info["key"] = 0
+        
+        all_vertex, mst = self._list_of_vertexes(), []
+        mst.append({"p": None, "s": vertex.name, "wt": vertex.info["key"]})
+        while True:
+            all_vertex.remove(vertex)
+
+            for edge in vertex.list_of_edges():
+                destiny = edge.destiny_class
+                if destiny not in all_vertex:
+                    continue
+                new_weight = edge.weight + vertex.info["key"]
+                if new_weight < destiny.info["key"]:
+                    destiny.info["key"] = new_weight
+                    destiny.info["p"] = vertex.name
+            
+            if not all_vertex:
+                break
+
+            vertex = min(all_vertex, key=lambda v: v.info["key"])
+            mst.append({
+                "p": vertex.info["p"],
+                "s": vertex.name,
+                "wt": vertex.info["key"]
+            })
+
+        self.set_infos(None)
+        return mst
 
     # Fluxo maximo
     def ford_fulkerson(self, begin, end):
