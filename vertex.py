@@ -1,11 +1,11 @@
-import edges
+from edges import edges
 
 
 class vertex(object):
     def __init__(self, name):
         self.name = name
         self.info = None
-        self.edges = edges.edges()
+        self.edges = edges()
         self.included = True
 
     def add(self, source, destiny, destiny_class, weight):
