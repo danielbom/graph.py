@@ -10,6 +10,7 @@ def print_mat(mat, n):
         print()
     print()
 
+
 def print_res(res):
     keys = sorted(res.keys())
     c = Counter([value["d"] for key, value in res.items()])
@@ -171,6 +172,19 @@ class interactive_graph(object):
     def _print_command(self, cmd):
         print(f"        {cmd['name']}: {cmd['help']}", end='\n\n')
     
+    def add_graph(self):
+        match = self._get_match("add")
+        if match:
+            frm = match["from"]
+            to = match["to"]
+            weight = match["weight"]
+            if weight == None:
+                weight = 1
+            if to:
+                self.g.add_single_edge(frm, to, weight)
+            else:
+                self.g.add_vertex(frm)
+
     def example_kruskal(self):
         self.command = "file ./examples/kruskal.txt"
         self.load_file_graph()
@@ -298,7 +312,7 @@ class interactive_graph(object):
             self._print_command(cmd)
     
     def execute_command(self, cmds):
-        for cmd in cmds.split("&&"):
+        for cmd in cmds.split("|"):
             cmd = cmd.strip()
             self.command = cmd
             name = cmd.split(" ", 1)[0]
@@ -325,8 +339,8 @@ class interactive_graph(object):
 if __name__ == "__main__":
     # example_prim()
     interactive = interactive_graph()
-    # interactive.execute_command("random 5 && print && bellmanford ")
-    # interactive.execute_command("file ./examples/kruskal.txt && print")
+    # interactive.execute_command("random 5 | print | bellmanford ")
+    # interactive.execute_command("file ./examples/kruskal.txt | print")
     # interactive.execute_command("example 1")
     interactive.run()
     

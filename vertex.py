@@ -18,10 +18,14 @@ class vertex(object):
         return [edge.destiny for edge in self.edges.list_of_edges()]
 
     def __str__(self):
-        return "From %s -> %s" % (str(self.name), str(list(self.edges.keys())))
+        return "From %s -> %s" % (str(self.name), str(
+            [(edge.destiny, edge.weight) for edge in self.edges.values()]
+        ))
 
     def __repr__(self):
-        return "From %s -> %s" % (str(self.name), str(list(self.edges.keys())))
+        return "From %s -> %s" % (str(self.name), str(
+            [(edge.destiny, edge.weight) for edge in self.edges.values()]
+        ))
 
     def is_sink(self):
         # Sorvedouro

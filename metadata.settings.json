@@ -50,7 +50,7 @@
         },
         "kruskal": {
             "name": "kruskal | k",
-            "help": "Run the Kruskal's algorithm for...",
+            "help": "Run the Kruskal's algorithm for generate a Minimal Spanning Tree",
             "fnct": "self.kruskal_graph()",
             "match": "(kruskal|k)"
         },
@@ -75,6 +75,12 @@
                 "dijkstra bellmanford": "exemple_dijkstra_and_bellman_ford()",
                 "4": "exemple_dijkstra_and_bellman_ford()"
             }
+        },
+        "add": {
+            "name": "add [%s[ %s [%f]]]",
+            "help": "Add vertexs and egdes to the graph.",
+            "fnct": "self.add_graph()",
+            "match": "add[ ]+(?P<from>[^ ]+)[ ]*(?P<to>[^ ]+)?[ ]*(?P<weight>[\\d]+(\\.[\\d]+)?)?"
         }
     },
     "redirect": {
