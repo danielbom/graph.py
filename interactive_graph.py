@@ -195,11 +195,18 @@ class interactive_graph(object):
         match = self._get_match("example")
         algorithm = match["algorithm"]
         function = self.commands["example"]["algorithm"][algorithm]
-        if algorithm != None:
-            print(algorithm)
+        if algorithm:
             eval(function)
         else:
             self._print_command(self.commands["example"])
+    
+    def docs(self):
+        match = self._get_match("docs")
+        algorithm = self.commands[match["algorithm"]] if match else None
+        if algorithm:
+            eval(algorithm["docs"])
+        else:
+            self._print_command(self.commands["docs"])
 
     def floydwarshall_graph(self):
         print("Floyd Warshall")

@@ -4,67 +4,92 @@
             "name": "help | ?",
             "help": "Show all commands.",
             "fnct": "self.help()",
-            "match": "help|\\?"
+            "match": "help|\\?",
+            "docs": "print()"
+        },
+        "docs": {
+            "name": "docs %s",
+            "help": "Show the docs string of a command.",
+            "fnct": "self.docs()",
+            "match": "docs[ ]+(?P<algorithm>.*)",
+            "docs": "print()"
         },
         "exit": {
             "name": "exit",
             "help": "Close the program.",
             "fnct": "self.exit()",
-            "match": "exit"
+            "match": "exit",
+            "docs": "print()"
         },
         "print": {
             "name": "print | p",
             "help": "Print the graph.",
             "fnct": "self.print_graph()",
-            "match": "print|p"
+            "match": "print|p",
+            "docs": "print()"
         },
         "random": {
             "name": "[random | r] [weight|density] [%d]",
             "help": "Create a new graph of a given length.",
             "fnct": "self.random_graph()",
-            "match": "(random|r)[ ]*(?P<type>weight|density)?[ ]*(?P<num>\\d+)?"
+            "match": "(random|r)[ ]*(?P<type>weight|density)?[ ]*(?P<num>\\d+)?",
+            "docs": "print()"
         },
         "file": {
             "name": "[file | f] [%s]",
             "help": "Load a graph from a file",
             "fnct": "self.load_file_graph()",
-            "match": "file[ ]*(?P<filename>.*)?"
+            "match": "file[ ]*(?P<filename>.*)?",
+            "docs": "print()"
         },
         "clear": {
             "name": "clear | c",
             "help": "Remove all elements of a graph",
             "fnct": "self.clear_graph()",
-            "match": "clear|c"
+            "match": "clear|c",
+            "docs": "print()"
         },
         "bfs": {
             "name": "bfs [%s]",
             "help": "Run a breadth first search in the current graph. \nCase a number for passed, then it's the first value.",
             "fnct": "self.bfs_graph()",
-            "match": "bfs[ ]*(?P<first>[\\d|\\s])?"
+            "match": "bfs[ ]*(?P<first>[\\d|\\s])?",
+            "docs": "help(graph.breadth_first_search)"
         },
         "dijkstra": {
             "name": "[dijkstra | d] [%s]",
             "help": "Run the Dijkstra's algorithm for minimum distances.",
             "fnct": "self.dijkstra_graph()",
-            "match": "(dijkstra|d)[ ]*(?P<first>[\\d|\\s])?"
+            "match": "(dijkstra|d)[ ]*(?P<first>[\\d|\\s])?",
+            "docs": "help(graph.dijkstra)"
         },
         "kruskal": {
             "name": "kruskal | k",
             "help": "Run the Kruskal's algorithm for generate a Minimal Spanning Tree",
             "fnct": "self.kruskal_graph()",
-            "match": "(kruskal|k)"
+            "match": "(kruskal|k)",
+            "docs": "help(graph.kruskal)"
         },
         "bellmanford": {
             "name": "bellmanford | bf",
             "help": "Run the Bellman Ford's algorithm for...",
             "fnct": "self.bellman_ford_graph()",
-            "match": "(bellmanford|bf)[ ]*(?P<first>[\\d|\\s])?"
+            "match": "(bellmanford|bf)[ ]*(?P<first>[\\d|\\s])?",
+            "docs": "help(graph.bellman_ford)"
+        },
+        "add": {
+            "name": "add [%s[ %s [%f]]]",
+            "help": "Add vertexs and egdes to the graph.",
+            "fnct": "self.add_graph()",
+            "match": "add[ ]+(?P<from>[^ ]+)[ ]*(?P<to>[^ ]+)?[ ]*(?P<weight>[\\d]+(\\.[\\d]+)?)?",
+            "docs": "print()"
         },
         "example": {
             "name": "[example | e] [%s]",
             "help": "Show examples from number or name.\n\t\t1 kruskal\n\t\t2 floyd warshall\n\t\t3 topologiical sort\n\t\t4 dijkstra bellmanford",
             "fnct": "self.examples()",
             "match": "(example|e)[ ]*(?P<algorithm>.)?",
+            "docs": "print()",
             "algorithm": {
                 "kruskal": "self.example_kruskal()",
                 "1": "self.example_kruskal()",
@@ -75,12 +100,6 @@
                 "dijkstra bellmanford": "exemple_dijkstra_and_bellman_ford()",
                 "4": "exemple_dijkstra_and_bellman_ford()"
             }
-        },
-        "add": {
-            "name": "add [%s[ %s [%f]]]",
-            "help": "Add vertexs and egdes to the graph.",
-            "fnct": "self.add_graph()",
-            "match": "add[ ]+(?P<from>[^ ]+)[ ]*(?P<to>[^ ]+)?[ ]*(?P<weight>[\\d]+(\\.[\\d]+)?)?"
         }
     },
     "redirect": {
