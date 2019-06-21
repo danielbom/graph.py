@@ -156,26 +156,26 @@ class graph(vertexes):
         return returned
         # Modelo com vetores auxiliares
         '''
-        n = len(self.keys())
-        d = [math.inf for v in range(n)]
-        p = [None for v in range(n)]
-        self.set_infos(list(range(n)))
+            n = len(self.keys())
+            d = [math.inf for v in range(n)]
+            p = [None for v in range(n)]
+            self.set_infos(list(range(n)))
 
-        d[self[begin].info] = 0
+            d[self[begin].info] = 0
 
-        for i in range(n):
-            relax = False
-            for vertex in self._list_of_vertexes():
-                for edge in vertex.edges.list_of_edges():
-                    _sum = d[edge.destiny_class.info] + edge.weight
-                    if d[vertex.info] > _sum:
-                        d[vertex.info] = _sum
-                        p[vertex.info] = edge.destiny
-                        relax = True
-            if not relax:
-                break
+            for i in range(n):
+                relax = False
+                for vertex in self._list_of_vertexes():
+                    for edge in vertex.edges.list_of_edges():
+                        _sum = d[edge.destiny_class.info] + edge.weight
+                        if d[vertex.info] > _sum:
+                            d[vertex.info] = _sum
+                            p[vertex.info] = edge.destiny
+                            relax = True
+                if not relax:
+                    break
 
-        return {vertex.name: {"id": vertex.info, "d": d[vertex.info], "p": p[vertex.info]} for vertex in self._list_of_vertexes()}
+            return {vertex.name: {"id": vertex.info, "d": d[vertex.info], "p": p[vertex.info]} for vertex in self._list_of_vertexes()}
         '''
 
     def floyd_warshall(self):
@@ -201,8 +201,20 @@ class graph(vertexes):
 
     # Arvore geradora de custo minimo
     def kruskal(self):
-        ''' Cálculo da árvore geradora mínima deste grafo a partir do algoritmo
-            de Kruskal.
+        ''' 
+                O algoritmo de Kruskal é um algoritmo que encontra a Árvore Geradora Mínima (MST) de um grafo ponderado. Existem muitas aplicações de MST, como qualquer tipo de projeto de rede (elétrico, estradas), análise de agrupamentos de dados, controle de processos, etc.
+
+                Em outras palavras, é encontrado um conjunto de arestas que formam uma árvore e incluem todas as arestas do grafo, onde o peso total das arestas é mínimo.
+
+                Por causa que o algoritmo escolher a aresta de menor custo primeiro, ele é considerado um algoritmo guloso.
+
+                O processo de implementação do algoritmo começa por criar um conjunto de árvores, também conhecido como floresta (um meio de armazenar todos os nós do grafo e verificar se adicionando uma aresta entre dois nós ainda preserva as propriedades de árvore).
+
+                Então, um meio de ordenar as arestas por peso é necessária. Um mapeamento do par (aresta, peso), ordenados pelo valor do peso é o suficiente.
+
+                Tendo estas duas estruturas de dados, o algoritmo é resumido por extrair a aresta com o peso mais baixo do grafo e adicioná-lo na floresta, combinando duas árvores, se e somente se não criar ciclos.
+
+                O algoritmo termina quando a floresta se torna uma árvore geradora do grafo.
 
             Parâmetros
             ----------
@@ -214,34 +226,11 @@ class graph(vertexes):
             list
                 Retorna a arvore geradora mínima deste grafo.
             
-            Informações adicionais
-            ----------------------
-            Dado um grafo conectado e unidirecional, uma árvore geradora
-            deste grafo é um subgrafo na forma de árvore e que conecta todos
-            os vértices juntos. Um único grafo por ter diferentes árvores
-            geradoras mínimas. Uma árvore geradora mínima (MST) ou árvore
-            geradora de peso mínimo de um grafo ponderado unidirecional e
-            conectado é uma árvore geradora com o peso menor ou igual todas
-            as outras árvores geradoras possíveis. A o peso da árvore geradora 
-            é a soma dos pesos de cada uma de suas arestas.
-
-            Quantas arestas formam uma árvore geradora?
-                Uma árvore geradora mínima tem (V - 1) arestas, onde V é o
-            número de vértices do grafo.
-
-            Onde aplicar as árvores geradoras mínimas?
-                ... TODO: Usar o 2º link para completar esta parte.
-            
-            Passos realizados para encontrar a MST usando o algoritmo de Kruskal
-                1 - Ordene todas as arestas na order crescente de pesos.
-                2 - Pege a aresta de menor peso. Verifique se ele forma ciclos
-                com a árvore geradora. Se ele não formar, inclua a aresta. Se
-                não, descarte-a.
-                3 - Repita o passo 2 até existirem (V - 1) vértices na MST.
-            
-            Links:
+            Links
+            -----
             https://www.geeksforgeeks.org/?p=26604/
             https://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/
+            https://www-m9.ma.tum.de/graph-algorithms/mst-kruskal/index_en.html
         '''
         # n = len(self.keys())
         # TODO: Usar fila de prioridades

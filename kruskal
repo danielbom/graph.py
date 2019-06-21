@@ -1,0 +1,38 @@
+
+
+
+Kruskal's algorithm is an algorithm that finds a minimum spanning tree in a weighted graph. The applications of minimum spanning trees are numerous: any type of network design (electrical, roads), data cluster analysis, process control, etc.
+
+In other words, it finds a subset of edges forming a tree that includes every vertex, and for which the total weight of the edges is minimal.
+
+The process of implementing the algorithm start with creating a set of trees, also known as a forest (a way to store all the nodes in the graph and check if adding an edge between two of these nodes still preserves the tree's properties).
+
+Then, a way of sorting edges' weights is needed. A mapping of (edge, weight) pairs, sorted by the value (i.e. weight) would suffice.
+
+Because the algorithm chooses the lowest-weight edge first, it is considered a greedy algorithm.
+
+Having these two data structures, the algoritm comes down to extracting the cheapest edge from the graph and adding it to the forest, combining two trees, if and only if it does not create a cycle.
+
+The algorithm terminates when the forest becomes a spanning tree of the graph.
+
+--
+
+Kruskal's algoritm can be shown to run in O(|E|.|log E|) time, which is equivalent to O(|E|.|log V|), where E and V are the number of edges and the number of vertices, respectively.
+
+==========================================================================================================================
+
+O algoritmo de Kruskal é um algoritmo que encontra a Árvore Geradora Mínima (MST) de um grafo ponderado. Existem muitas aplicações de MST, como qualquer tipo de projeto de rede (elétrico, estradas), análise de agrupamentos de dados, controle de processos, etc.
+
+Em outras palavras, é encontrado um conjunto de arestas que formam uma árvore e incluem todas as arestas do grafo, onde o peso total das arestas é mínimo.
+
+Por causa que o algoritmo escolher a aresta de menor custo primeiro, ele é considerado um algoritmo guloso.
+
+O processo de implementação do algoritmo começa por criar um conjunto de árvores, também conhecido como floresta (um meio de armazenar todos os nós do grafo e verificar se adicionando uma aresta entre dois nós ainda preserva as propriedades de árvore).
+
+Então, um meio de ordenar as arestas por peso é necessária. Um mapeamento do par (aresta, peso), ordenados pelo valor do peso é o suficiente.
+
+Tendo estas duas estruturas de dados, o algoritmo é resumido por extrair a aresta com o peso mais baixo do grafo e adicioná-lo na floresta, combinando duas árvores, se e somente se não criar ciclos.
+
+O algoritmo termina quando a floresta se torna uma árvore geradora do grafo.
+
+
