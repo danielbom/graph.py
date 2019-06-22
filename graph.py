@@ -11,8 +11,6 @@ import re
     Caminhos mínimos de todas as fontes:
     Determina o menor caminho de todos os vértices para todos os outros vértices.
 
-    Árvore geradora mínima:
-
 
     Ordenação topológica:
     * Para grafos direcionados acíclicos.
@@ -40,9 +38,14 @@ def file_graph(graph, filename):
                 weight = 1
             graph.add_edge(match["from"], match["to"], weight)
 
-def random_graph(graph, limite=20):
+def random_graph(graph, limite=20, oriented=False):
     for _ in range(limite):
-        graph.add_edge(random.randint(0, limite), random.randint(0, limite))
+        a = random.randint(0, limite)
+        b = random.randint(0, limite)
+        if oriented:
+            graph.add_single_edge( a,b )
+        else:
+            graph.add_edge( a,b )
 
 def random_graph_weight(graph, limite=20):
     for _ in range(limite):
@@ -74,7 +77,7 @@ class graph(vertexes):
 
             while len(fila):
                 vertex_1 = fila.pop(0)
-                for vertex_2 in vertex_1.edges.list_of_vertexes():
+                for vertex_2 in vertex_1.edges.destiniations():
                     if vertex_2.info["cor"] == 'b':
                         vertex_2.info["cor"] = 'c'
                         vertex_2.info["d"] = vertex_1.info["d"]+1
@@ -137,8 +140,8 @@ class graph(vertexes):
             self.set_infos({"d": math.inf, "p": None})
 
             begin_class.info["d"] = 0
-
             for _ in range(len(self.keys())):
+                relax = False
                 for vertex in self._list_of_vertexes():
                     for edge in vertex.edges.list_of_edges():
                         # soma das distancias
@@ -159,7 +162,6 @@ class graph(vertexes):
             n = len(self.keys())
             d = [math.inf for v in range(n)]
             p = [None for v in range(n)]
-            self.set_infos(list(range(n)))
 
             d[self[begin].info] = 0
 
@@ -182,11 +184,12 @@ class graph(vertexes):
         '''
             O caminho mais curto de todos os nó até todos os outros nós.
         '''
-        d = {key: math.inf if value == 0 and key[0] != key[1] else value
-             for key, value in self.matrix_of_adjacence().items()}
+        matrix = self.matrix_of_adjacence()
+        n = len(matrix)
+        d = {(i,j): math.inf if matrix[i][j] == 0 and i != j else matrix[i][j]
+                for j in range(n) for i in range(n)}
         p = {key: key[0] if value != math.inf and key[0] != key[1] else -1
              for key, value in d.items()}
-        n = len(self.keys())
 
         for k in range(n):
             for i in range(n):
@@ -232,9 +235,11 @@ class graph(vertexes):
             https://www.geeksforgeeks.org/applications-of-minimum-spanning-tree/
             https://www-m9.ma.tum.de/graph-algorithms/mst-kruskal/index_en.html
         '''
+        if not self:
+            return []
         # n = len(self.keys())
         # TODO: Usar fila de prioridades
-        all_egdes = sorted(self.list_of_all_edges(), key=lambda x: x.weight)
+        all_egdes = sorted(self.edges(), key=lambda x: x.weight)
 
         ds = dset.disjoint_set()
         mst = []
@@ -292,8 +297,10 @@ class graph(vertexes):
             Links:
             https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/
         '''
+        if not self:
+            return []
         # TODO: Change the all_vertex by a priority queue
-        # TODO: Use diisjoint set to now if has generate cicle
+        # TODO: Use disjoint set to now if has generate cicle
         self.set_infos({"key": math.inf, "p": None})
         
         if begin is None:
@@ -301,7 +308,7 @@ class graph(vertexes):
         vertex = self.get(begin)
         vertex.info["key"] = 0
         
-        all_vertex, mst = self._list_of_vertexes(), []
+        all_vertex, mst = list(self._list_of_vertexes()), []
         mst.append({"p": None, "s": vertex.name, "wt": vertex.info["key"]})
         while True:
             all_vertex.remove(vertex)
@@ -382,7 +389,7 @@ class graph(vertexes):
     # Auxiliares
     def has_circle(self):
         ds = dset.disjoint_set()
-        for e in self.list_of_all_edges():
+        for e in self.edges():
             if not ds.union(e.source, e.destiny):
                 return True
         return False

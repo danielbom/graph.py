@@ -8,7 +8,10 @@ class edge(object):
         self.info = 0
 
     def __str__(self):
-        return str(self.destiny)
+        return f"({self.source}:{self.destiny}:{self.weight})"
 
     def __repr__(self):
-        return str(self.destiny)
+        return self.__str__()
+
+    def __eq__(self, other):
+        return str(self) == str(other)

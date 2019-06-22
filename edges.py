@@ -6,7 +6,7 @@ class edges(dict):
         self[destiny] = edge.edge(source, destiny, destiny_class, weight)
 
     def list_of_edges(self):
-        return list(self.values())
+        return self.values()
 
-    def list_of_vertexes(self):
+    def destiniations(self):
         return [edge.destiny_class for edge in self.values()]

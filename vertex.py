@@ -8,8 +8,8 @@ class vertex(object):
         self.edges = edges()
         self.included = True
 
-    def add(self, source, destiny, destiny_class, weight):
-        self.edges.add(source, destiny, destiny_class, weight)
+    def add(self, destiny_class, weight):
+        self.edges.add(self.name, destiny_class.name, destiny_class, weight)
 
     def list_of_edges(self):
         return self.edges.list_of_edges()
@@ -18,15 +18,11 @@ class vertex(object):
         return [edge.destiny for edge in self.edges.list_of_edges()]
 
     def __str__(self):
-        return "From %s -> %s" % (str(self.name), str(
-            [(edge.destiny, edge.weight) for edge in self.edges.values()]
-        ))
+        edges = [(edge.destiny, edge.weight) for edge in self.edges.values()]
+        return "From {} -> {}".format(self.name, edges)
 
     def __repr__(self):
-        return "From %s -> %s" % (str(self.name), str(
-            [(edge.destiny, edge.weight) for edge in self.edges.values()]
-        ))
+        return self.__str__() 
 
-    def is_sink(self):
-        # Sorvedouro
+    def is_sink(self): # Sorvedouro
         return len(self.edges.keys()) == 0
