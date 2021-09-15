@@ -1,5 +1,5 @@
 from collections import Counter
-from graph import graph, print_graph, random_graph, random_graph_weight, random_density_graph
+from graph import graph, print_graph, random_graph, random_weight_graph, random_density_graph
 import json
 import re
 
@@ -297,7 +297,7 @@ class interactive_graph(object):
             if mtype == None:
                 random_graph(self.g, n)
             elif mtype == "weight":
-                random_graph_weight(self.g, n)
+                random_weight_graph(self.g, n)
             elif mtype == "density":
                 random_density_graph(self.g, n)
             else:

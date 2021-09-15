@@ -47,7 +47,7 @@ def random_graph(graph, limite=20, oriented=False):
         else:
             graph.add_edge( a,b )
 
-def random_graph_weight(graph, limite=20):
+def random_weight_graph(graph, limite=20):
     for _ in range(limite):
         graph.add_edge(random.randint(0, limite), random.randint(
             0, limite), random.randint(0, limite*10))
@@ -58,7 +58,6 @@ def random_density_graph(graph, limite=20):
 
 def print_graph(graph):
     print(*sorted(list(graph.values()), key=lambda x: x.name), sep='\n')
-    print()
 
 class graph(vertexes):
     # Buscas

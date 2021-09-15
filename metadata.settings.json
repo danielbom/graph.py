@@ -1,7 +1,7 @@
 {
     "commands": {
         "help": {
-            "name": "help | ?",
+            "name": "help | h | ?",
             "help": "Show all commands.",
             "fnct": "self.help()",
             "match": "help|\\?",
@@ -37,14 +37,14 @@
         },
         "file": {
             "name": "[file | f] [%s]",
-            "help": "Load a graph from a file",
+            "help": "Load a graph from a file.",
             "fnct": "self.load_file_graph()",
             "match": "file[ ]*(?P<filename>.*)?",
             "docs": "print()"
         },
         "clear": {
             "name": "clear | c",
-            "help": "Remove all elements of a graph",
+            "help": "Remove all elements of a graph.",
             "fnct": "self.clear_graph()",
             "match": "clear|c",
             "docs": "print()"
@@ -104,6 +104,7 @@
     },
     "redirect": {
         "?": "help",
+        "h": "help",
         "c": "clear",
         "p": "print",
         "r": "random",

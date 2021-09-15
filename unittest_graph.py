@@ -5,6 +5,8 @@ from graph import *
 import copy
 import unittest
 
+glen = lambda gen: sum(1 for _ in gen)
+
 def simple_graph(graph):
     graph.add_single_edge("a", "b")
     graph.add_single_edge("b", "c")
@@ -18,12 +20,12 @@ class Unittestgraph(unittest.TestCase):
     def test_add_single_egde(self):
         length = len(self.graph)
         self.graph.add_single_edge("a", "b", 10)
-        self.assertEqual(len(list(self.graph.edges())), length+1)
+        self.assertEqual(glen(self.graph.edges()), length+1)
 
     def test_add_edges(self):
         length = len(self.graph)
         self.graph.add_edge("c", "d", 10)
-        self.assertEqual(len(list(self.graph.edges())), length+2)
+        self.assertEqual(glen(self.graph.edges()), length+2)
 
     def test_not_has_circle(self):
         self.assertEqual(self.graph.has_circle(), False, "Empty")
@@ -42,7 +44,7 @@ class Unittestgraph(unittest.TestCase):
         self.assertEqual(self.graph.has_circle(), True, "Four [a -> b, b -> c, c -> d, d -> a]")
 
     def test_kosajaru(self):
-        self.assertRaises(NotImplementedError,self.graph.kosajaru)
+        self.assertRaises(NotImplementedError, self.graph.kosajaru)
 
     def test_reverse_simple(self):
         simple_graph(self.graph)
